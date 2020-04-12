@@ -4,7 +4,8 @@
 //https://algorithms.tutorialhorizon.com/find-the-only-element-in-array-which-appears-only-once/
 //
 //trova l'unico elemento dell'array che appare una volta sola
-//IPOTESI: tutti gli elementi dell'array compaiono esattamente due volte, tranne un unico elemento che compare una volta sola.
+//IPOTESI: tutti gli elementi dell'array compaiono esattamente due volte, tranne un unico elemento che
+//compare una volta sola.
 //
 //Esempio:
 //
@@ -12,8 +13,10 @@
 //output: 4
 //
 //
-//scrivere in C la versione "forza bruta" dell'algoritmo (il sito web riporta altre due versioni, facciamo questa come esercizio).
-//usare cicli annidati e confrontare ciascun elemento dell'array con tutti gli altri elementi per tracciare l'elemento che è non-ripetuto.
+//scrivere in C la versione "forza bruta" dell'algoritmo (il sito web riporta altre due versioni, facciamo
+//questa come esercizio).
+//Usare cicli annidati e confrontare ciascun elemento dell'array con tutti gli altri elementi per tracciare
+//l'elemento che è non-ripetuto.
 //
 //
 //Time Complexity: O(n^2)
@@ -46,12 +49,33 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
 
+void findBruteForce(int a[], int size);
 
-int main(int argc, char *argv[]) {
-
+int main(int argc, char *argv[]){
+	int a[] = { 1,5,6,2,1,6,4,3,2,5,3 };
+	int size = sizeof(a)/sizeof(int);
+	findBruteForce(a, size);
 
 	return 0;
+}
+
+void findBruteForce(int a[], int size){
+	int * visited = calloc(size, sizeof(int));
+	for(int i=0; i<size; i++){
+		int x = a[i];
+		if(visited[i] == 0){
+			int isDuplicate = 0;
+			for(int j=i+1; j<size; j++){
+				if( x == a[j]){
+					isDuplicate = 1;
+					visited[j] = 1;
+				}
+			}
+			if( isDuplicate == 0){
+				printf("The element that appears only once in the array is: %d", x);
+			}
+		}
+	}
+	free(visited);
 }
